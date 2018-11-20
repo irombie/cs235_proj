@@ -26,6 +26,18 @@ def draw_spectogram(path_to_audio, save_path):
     plt.title('Mel spectrogram')
     plt.tight_layout()
     plt.show()
+
+                
+''' crop 3 pixels to make calculations easier
+root_to_walk = '/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres'
+root_to_save = '/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres_cropped'
+for root, dirs, files in os.walk(root_to_walk):
+    for directory in dirs:
+        for root1, dirs1, files1 in os.walk(os.path.join(root, directory)):
+            for f in files1:
+                crop(os.path.join(root1, f), (0, 0, 900, 324), "{}/{}.png".format(os.path.join(root_to_save, directory),f))
+'''
+                
     '''
     path_to_save = os.path.join(save_path)
     if not os.path.exists(save_path):
