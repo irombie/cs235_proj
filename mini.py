@@ -131,31 +131,35 @@ def construct_train_test_data_grayscale(input_h, input_w, no_of_imgs, data, labe
     np.save('/Users/iremergun/Desktop/ucr_classes/cs235/proj/test_label', test_labels)
     return train_data, test_data, train_labels, test_labels
 '''
-data,labels = construct_input_matrix('/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres',324,903,3,1000)
+data,labels = construct_input_matrix_grayscale('/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres_tripled',324,300,3000)
 print(data.shape)
-print(labels.shape)
+print(labels)
 
-data = np.load('data.npy')
-labels = np.load('labels.npy')
+data = np.load('/Users/iremergun/Desktop/ucr_classes/cs235/proj/data.npy')
+labels = np.load('/Users/iremergun/Desktop/ucr_classes/cs235/proj/labels.npy')
 
-
-train_data, test_data, train_label, test_label = construct_train_test_data_grayscale(324,903,len(labels),data, labels, 0.1)
+#train_data, test_data, train_label, test_label = construct_train_test_data_grayscale(324,300,len(labels),data, labels, 0.1)
+train_data, test_data, train_label, test_label = train_test_split(data, labels, test_size=0.20)
 print(train_data.shape)
 print(test_data.shape)
 print(test_label)
+print(train_label)
 '''
+train_data = np.load('/Users/iremergun/Desktop/ucr_classes/cs235/proj/train_data.npy') 
+test_data = np.load('/Users/iremergun/Desktop/ucr_classes/cs235/proj/test_data.npy') 
+train_label = np.load('/Users/iremergun/Desktop/ucr_classes/cs235/proj/train_label.npy') 
+test_label = np.load('/Users/iremergun/Desktop/ucr_classes/cs235/proj/test_label.npy') 
+print(train_data.shape)
+print(test_data.shape)
 
-train_data = np.load('train_data.npy') 
-test_data = np.load('test_data.npy') 
-train_label = np.load('train_label.npy') 
-test_label = np.load('test_label.npy') 
-
-model = LeNet.build_model_lenet(324,903,1,10)
+'''
+model = LeNet.build_model_lenet(324,300,1,10)
 opt = Adam(lr=0.0001)
 model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"]) #categorical_crossentropy
-train_data = train_data.reshape((train_data.shape[0], 324, 903, 1))
-test_data = test_data.reshape((test_data.shape[0], 324, 903, 1))
+train_data = train_data.reshape((train_data.shape[0], 324, 300, 1))
+test_data = test_data.reshape((test_data.shape[0], 324, 300, 1))
 print("[INFO] training...")
-model.fit(train_data, train_label, batch_size=16, epochs=5, verbose=1)
-(loss, accuracy) = model.evaluate(test_data, test_label, batch_size=16, verbose=1)
+model.fit(train_data, train_label, batch_size=64, epochs=10, verbose=1)
+(loss, accuracy) = model.evaluate(test_data, test_label, batch_size=64, verbose=1)
 print("[INFO] accuracy: {:.2f}%".format(accuracy * 100))
+'''

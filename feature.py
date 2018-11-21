@@ -27,6 +27,20 @@ def draw_spectogram(path_to_audio, save_path):
     plt.tight_layout()
     plt.show()
 
+''' make 3 pics from 1 pic
+root_to_walk = '/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres_cropped'
+root_to_save = '/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres_tripled'
+for root, dirs, files in os.walk(root_to_walk):
+    for directory in dirs:
+        for root1, dirs1, files1 in os.walk(os.path.join(root, directory)):
+            for f in files1:
+                if not os.path.exists(os.path.join(root_to_save,directory)):
+                    os.makedirs(os.path.join(root_to_save,directory))
+                print("Doing {}".format(os.path.join(root1,f)))
+                crop(os.path.join(root1, f), (0, 0, 300, 324), "{}/{}_1.png".format(os.path.join(root_to_save, directory),f))
+                crop(os.path.join(root1, f), (300, 0, 600, 324), "{}/{}_2.png".format(os.path.join(root_to_save, directory),f))
+                crop(os.path.join(root1, f), (600, 0, 900, 324), "{}/{}_3.png".format(os.path.join(root_to_save, directory),f))
+'''
                 
 ''' crop 3 pixels to make calculations easier
 root_to_walk = '/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres'
@@ -35,10 +49,9 @@ for root, dirs, files in os.walk(root_to_walk):
     for directory in dirs:
         for root1, dirs1, files1 in os.walk(os.path.join(root, directory)):
             for f in files1:
-                crop(os.path.join(root1, f), (0, 0, 900, 324), "{}/{}.png".format(os.path.join(root_to_save, directory),f))
-'''
-                
-    '''
+                if not os.path.exists(os.path.join(root_to_save, directory)):
+                    os.makedirs(os.path.join(root_to_save, directory)
+                crop(os.path.join(root1, f), (0, 0, 900, 324), "{}/{}.png".format(os.path.join(root_to_save, directory),f)
     path_to_save = os.path.join(save_path)
     if not os.path.exists(save_path):
         os.makedirs(save_path)
