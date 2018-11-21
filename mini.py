@@ -133,6 +133,7 @@ def construct_train_test_data_grayscale(input_h, input_w, no_of_imgs, data, labe
     np.save('/Users/iremergun/Desktop/ucr_classes/cs235/proj/test_data', test_data)
     np.save('/Users/iremergun/Desktop/ucr_classes/cs235/proj/test_label', test_labels)
     return train_data, test_data, train_labels, test_labels
+
 '''
 data,labels = construct_input_matrix('/Users/iremergun/Desktop/ucr_classes/cs235/proj/genres_tripled',324,300,3,3000)
 print(data.shape)
@@ -169,6 +170,7 @@ model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["a
 #train_data = train_data.reshape((train_data.shape[0], 324, 300, 1))
 #test_data = test_data.reshape((test_data.shape[0], 324, 300, 1))
 print("[INFO] training...")
-model.fit(train_data, train_label, batch_size=64, epochs=30, verbose=1)
+model.fit(train_data, train_label, batch_size=64, epochs=15, verbose=1)
 (loss, accuracy) = model.evaluate(test_data, test_label, batch_size=64, verbose=1)
 print("[INFO] accuracy: {:.2f}%".format(accuracy * 100))
+print("loss: {}".format(loss))
