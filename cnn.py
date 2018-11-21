@@ -29,11 +29,11 @@ class LeNet:
         model = Sequential()
         inp = (img_h, img_w, depth)
         #First convolutional layer: hyper parameters -> num_filters: 20, filter_size: 4x4, stride: 2x2, padding:1, bias: all zeroes, filter_init: Xavier uniform init
-        model.add(Conv2D(20, (4,4), strides=(2, 2), input_shape=inp)) #Make the size of activation map integer using the formula (W−F+2P)/S+1
+        model.add(Conv2D(40, (2,2), strides=(1, 1), input_shape=inp)) #Make the size of activation map integer using the formula (W−F+2P)/S+1
         model.add(Activation("relu")) #RELU layer
         model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2))) #Most common pooling layer type
         #second conv layer, all params are the except num_filters, the deeper the layer the more filters it uses
-        model.add(Conv2D(50, (4, 4), strides=(2, 2),input_shape=inp))
+        model.add(Conv2D(100, (2, 2), strides=(1, 1),input_shape=inp))
         model.add(Activation("relu"))
         model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
         #flatten the output into a single vector before the first fully connected layer
