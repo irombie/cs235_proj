@@ -9,7 +9,7 @@ from keras.layers.convolutional import Conv2D
 from keras.layers.convolutional import MaxPooling2D
 from keras.layers.core import Activation
 from keras.layers.core import Flatten
-from keras.layers.core import Dense
+from keras.layers.core import Dense, Dropout
 from keras import backend as K
 
 class LeNet:
@@ -38,8 +38,10 @@ class LeNet:
         model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
         #flatten the output into a single vector before the first fully connected layer
         model.add(Flatten())
+        #model.add(Dropout(rate=0.5))
         model.add(Dense(500)) #found via trial and error (first fc layer)
         model.add(Activation("relu"))
+        #model.add(Dropout(rate=0.5))
         model.add(Dense(numClasses)) #second fc layer to output the probability of each data point belonging to each class
         model.add(Activation("softmax")) #using the prob. output of the last fc layer, classify to a class 
         return model
