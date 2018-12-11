@@ -137,7 +137,7 @@ print(test_data.shape)
 
 
 model = LeNet.build_model_lenet(324,300,3,10)
-opt = SGD(lr=0.1)
+opt = Adam(lr=0.001)
 model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"]) #categorical_crossentropy
 #train_data = train_data.reshape((train_data.shape[0], 324, 300, 1))
 #test_data = test_data.reshape((test_data.shape[0], 324, 300, 1))
@@ -147,13 +147,11 @@ callbacks_list = [earlystop]
 #plot_model(model, to_file='/Users/iremergun/Desktop/ucr_classes/cs235/proj/report/model.png', show_shapes=True)
 
 print("[INFO] training...")
-model.fit(train_data, train_label, batch_size=64, epochs=1, verbose=1, validation_data=(test_data, test_label) )
+model.fit(train_data, train_label, batch_size=64, epochs=10, verbose=1, validation_data=(test_data, test_label) )
 (loss, accuracy) = model.evaluate(test_data, test_label, batch_size=64, verbose=1)
 results = model.predict_classes(test_data, batch_size=64, verbose =1)
 print("[INFO] accuracy: {:.2f}%".format(accuracy * 100))
 print("loss: {}".format(loss))
-print test_label 
-print results
 res = confusion_matrix(test_label, results, labels=[0,1,2,3,4,5,6,7,8,9])#"metal", "pop", "disco", "blues", "classical", "reggae", "rock", "hiphop", "country", "jazz"]) 
 class_names = [0,1,2,3,4,5,6,7,8,9]
 plot_confusion_matrix(res, class_names)
